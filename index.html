@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Événements Juridiques</title>
     <style>
-      * {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -17,6 +17,7 @@
         }
 
         .header {
+        
            background-image: url('https://res.cloudinary.com/donkwo18z/image/upload/v1731984160/20241119_024101_0000_vzdgus.png');
             background-size: cover;
             background-position: center;
@@ -24,6 +25,7 @@
             padding: 20px;
             text-align: center;
         }
+
         .nav-tabs {
             background-color: white;
             padding: 15px 20px 0;
@@ -137,7 +139,7 @@
 
         button {
             padding: 8px 15px;
-            background-color: #2196f3; /* Changement de couleur */
+            background-color: #4e73df; /* Changement de couleur */
             color: white;
             border: none;
             border-radius: 4px;
@@ -165,7 +167,7 @@
         }
 
         .footer {
-            background-color: #2196f3;
+            background-color: #343a40;
             color: white;
             text-align: center;
             padding: 20px;
@@ -199,10 +201,7 @@
                 </select>
                 <input type="date" id="dateFilter">
                 <button onclick="filterEvents()">Filtrer</button>
-                
-                <section>
-                    <p>AUCUN ÉVÉNEMENT EN COURS</p></section>
-            
+            </div>
         </div>
         <div id="eventsContainer"></div>
     </div>
@@ -246,7 +245,7 @@
         let events = [
             {
                 title: "Conférence sur le Droit du Numérique",
-                date: "2024-12-15",
+                date: "2024-12-16",
                 type: "conference",
                 description: "Une conférence sur les dernières évolutions du droit du numérique et leurs impacts sur les entreprises."
             },
@@ -261,9 +260,6 @@
                 date: "2024-12-31",
                 type: "deadline",
                 description: "Date limite pour la soumission des déclarations fiscales annuelles."
-            }
-        ];
-        
             }
         ];
 
