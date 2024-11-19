@@ -3,246 +3,347 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Streaming Juridique - Law Matter TV</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Événements Juridiques</title>
     <style>
-        /* Styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #000;
-            color: #fff;
+      * {
             margin: 0;
             padding: 0;
-            position: relative;
-            overflow: hidden;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #e9ecef;
         }
 
         .header {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+           background-image: url('https://res.cloudinary.com/donkwo18z/image/upload/v1731984160/20241119_024101_0000_vzdgus.png');
+            background-size: cover;
+            background-position: center;
+            color: white;
             padding: 20px;
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-
-        .site-name {
-            font-size: 24px;
-            color: #fff;
-        }
-
-        .video-player {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            margin: 20px 0;
-        }
-
-        .clock {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-size: 16px;
-            z-index: 10;
-            color: #fff;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 5px;
-            border-radius: 5px;
-        }
-
-        .direct-text {
-            position: absolute;
-            top: 10px;
-            left: 20px;
-            color:rgb(253, 200, 31);
-            padding: 5px;
-            border-radius: 5px;
-            font-weight: bold;
-            z-index: 10;
-        
-        }
-
-        iframe {
-            width: 100%;
-            height: auto;
-            aspect-ratio: 16 / 9;
-            border: none;
-            z-index: 1;
-        }
-
-        .actions {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-
-        .icon-button {
-            background-color: transparent;
-            color: #fff;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            margin: 0 10px;
-            transition: color 0.3s ease;
-        }
-
-        .icon-button:hover {
-            color: #ddd;
-        }
-
-        .small-buttons {
-            display: flex;
-            justify-content: space-evenly;
-            margin: 20px 0;
-        }
-
-        .small-button {
-            background-color: #FFD700;
-            color: #000;
-            border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
-            font-size: 12px;
-            cursor: pointer;
-            margin: 0 5px;
-            display: flex;
-            align-items: center;
-            opacity: 1;
-            transition: opacity 0.3s ease;
-        }
-
-        .small-button span {
-            margin-left: 5px;
-        }
-
-        .copyright {
             text-align: center;
-            font-size: 12px;
-            margin-top: 20px;
+        }
+        .nav-tabs {
+            background-color: white;
+            padding: 15px 20px 0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 16px;
+            color: #495057;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            color: #4e73df; /* Changement de couleur */
+            border-bottom: 3px solid #4e73df; /* Changement de couleur */
+        }
+
+        .section {
+            display: none;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .filters {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .event-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .event-title {
+            color: #4e73df; /* Changement de couleur */
+            margin-bottom: 10px;
+        }
+
+        .event-date {
+            color: #6c757d;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .event-description {
+            color: #495057;
+            line-height: 1.6;
+        }
+
+        .event-type {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin-bottom: 10px;
+        }
+
+        .type-conference {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .type-formation {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .type-deadline {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        select, input, textarea {
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #4e73df; /* Changement de couleur */
+        }
+
+        button {
+            padding: 8px 15px;
+            background-color: #2196f3; /* Changement de couleur */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: ;
+        }
+
+        .create-form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .success-message {
+            background-color: #28a745; /* Changement de couleur */
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .footer {
+            background-color: #2196f3;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        .footer a {
+            color: #f8f9fa;
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <div class="site-name">Law Matter TV</div>
+        <h1>Événements Juridiques</h1>
     </div>
 
-    <div class="video-player">
-        <iframe id="videoPlayer" 
-                allow="autoplay; fullscreen; picture-in-picture; encrypted-media" 
-                allowfullscreen></iframe>
-        <div class="clock" id="clock" onclick="alert('Law Matter TV fonctionne selon le fuseau horaire GMT+0')"></div>
-        <div class="direct-text" id="directText" onclick="alert('Law Matter TV Célèbre HALLOWEEN 👻 🎃')">DOC+</div>
-    </div>
-    
-    <div class="actions">
-        <button class="icon-button" onclick="toggleFullScreen()">
-            <i class="fas fa-expand"></i>
-        </button>
-        <button class="icon-button" onclick="shareLink()">
-            <i class="fas fa-share-alt"></i>
-        </button>
+    <div class="nav-tabs">
+        <button class="tab active" onclick="showSection('events')">Liste des événements</button>
+        <button class="tab" onclick="showSection('create')">Contacter pour créer un événement</button>
     </div>
 
-    <div class="small-buttons">
-        <button class="small-button" id="btn1" onclick="window.open('https://me.lygosapp.com/buy/LawMatter_store', '_blank')">
-            <span>Fait un don</span>
-            <i class="fas fa-hand-holding-usd"></i>
-        </button>
-        <button class="small-button" id="btn2" onclick="window.open('https://wa.me/2250143692215?text=J%27aimerais%20en%20savoir%20davantage%20sur%20le%20droit%20de%20diffusion%20d%27une%20publicité%20sur%20votre%20chaîne', '_blank')">
-            <span>Faire une publicité</span>
-            <i class="fas fa-bullhorn"></i>
-        </button>
-        <button class="small-button" id="btn3" onclick="window.open('https://wa.me/2250143692215?text=J%27aimerais%20en%20savoir%20davantage%20sur%20la%20création,%20le%20devis%20et%20le%20droit%20de%20diffusion', '_blank')">
-            <span>Créer une émission</span>
-            <i class="fas fa-tv"></i>
-        </button>
-        <button class="small-button" id="btn4" onclick="window.open('https://lawmattertv.taplink.ws/', '_blank')">
-            <span>Télécharger application</span>
-            <i class="fas fa-download"></i>
-        </button>
+    <div id="events-section" class="section active">
+        <div class="filters">
+            <div class="filter-group">
+                <select id="typeFilter">
+                    <option value="tous">Tous les types</option>
+                    <option value="conference">Conférences</option>
+                    <option value="formation">Formations</option>
+                    <option value="deadline">Deadlines</option>
+                </select>
+                <input type="date" id="dateFilter">
+                <button onclick="filterEvents()">Filtrer</button>
+                
+                <section>
+                    <p>AUCUN ÉVÉNEMENT EN COURS</p></section>
+            
+        </div>
+        <div id="eventsContainer"></div>
     </div>
 
-    <div class="copyright">
-        &copy; 2024 Law Matter TV. Tous droits réservés.
+    <div id="create-section" class="section">
+        <div class="create-form">
+            <div id="successMessage" class="success-message">
+                Votre demande a bien été envoyée !
+            </div>
+            <form id="contactForm" onsubmit="redirectToWhatsApp(event)">
+                <div class="form-group">
+                    <label for="eventTitle">Titre de l'événement</label>
+                    <input type="text" id="eventTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventType">Type d'événement</label>
+                    <select id="eventType" required>
+                        <option value="conference">Conférence</option>
+                        <option value="formation">Formation</option>
+                        <option value="deadline">Deadline</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="eventDate">Date</label>
+                    <input type="date" id="eventDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventDescription">Description</label>
+                    <textarea id="eventDescription" rows="4" required></textarea>
+                </div>
+                <button type="submit">Envoyer la demande</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 Événements Juridiques | <a href="https://wa.me/2250143692215">Contactez-nous sur WhatsApp</a></p>
     </div>
 
     <script>
-        function toggleFullScreen() {
-            const video = document.getElementById('videoPlayer');
-            if (!document.fullscreenElement) {
-                video.requestFullscreen().catch(err => {
-                    alert(`Erreur lors de l'activation du mode plein écran : ${err.message}`);
-                });
-            } else {
-                document.exitFullscreen();
+        let events = [
+            {
+                title: "Conférence sur le Droit du Numérique",
+                date: "2024-12-15",
+                type: "conference",
+                description: "Une conférence sur les dernières évolutions du droit du numérique et leurs impacts sur les entreprises."
+            },
+            {
+                title: "Formation RGPD",
+                date: "2024-12-20",
+                type: "formation",
+                description: "Formation intensive sur la mise en conformité RGPD pour les entreprises."
+            },
+            {
+                title: "Date limite déclaration fiscale",
+                date: "2024-12-31",
+                type: "deadline",
+                description: "Date limite pour la soumission des déclarations fiscales annuelles."
             }
+        ];
+        
+            }
+        ];
+
+        function showSection(sectionName) {
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionName + '-section').classList.add('active');
         }
 
-        function shareLink() {
-            const url = window.location.href;
-            navigator.clipboard.writeText(url).then(() => {
-                alert("Lien copié dans le presse-papier.");
-            }).catch(err => {
-                alert(`Erreur lors de la copie du lien : ${err}`);
+        function redirectToWhatsApp(event) {
+            event.preventDefault();
+            const title = document.getElementById('eventTitle').value;
+            const type = document.getElementById('eventType').value;
+            const date = document.getElementById('eventDate').value;
+            const description = document.getElementById('eventDescription').value;
+            const message = `Titre: ${title}\nType: ${type}\nDate: ${date}\nDescription: ${description}`;
+            const whatsappUrl = `https://wa.me/2250143692215?text=${encodeURIComponent(message)}`;
+            window.location.href = whatsappUrl;
+            document.getElementById('successMessage').style.display = 'block';
+            document.getElementById('contactForm').reset();
+        }
+
+        function filterEvents() {
+            const typeFilter = document.getElementById('typeFilter').value;
+            const dateFilter = document.getElementById('dateFilter').value;
+            const filteredEvents = events.filter(event => {
+                const isTypeMatch = (typeFilter === 'tous' || event.type === typeFilter);
+                const isDateMatch = !dateFilter || event.date === dateFilter;
+                return isTypeMatch && isDateMatch;
+            });
+            displayEvents(filteredEvents);
+        }
+
+        function displayEvents(filteredEvents) {
+            const eventsContainer = document.getElementById('eventsContainer');
+            eventsContainer.innerHTML = '';
+
+            if (filteredEvents.length === 0) {
+                eventsContainer.innerHTML = '<p>Aucun événement trouvé.</p>';
+                return;
+            }
+
+            filteredEvents.forEach(event => {
+                const eventCard = document.createElement('div');
+                eventCard.classList.add('event-card');
+
+                const eventTitle = document.createElement('h3');
+                eventTitle.classList.add('event-title');
+                eventTitle.innerText = event.title;
+
+                const eventDate = document.createElement('p');
+                eventDate.classList.add('event-date');
+                eventDate.innerText = `Date: ${event.date}`;
+
+                const eventDescription = document.createElement('p');
+                eventDescription.classList.add('event-description');
+                eventDescription.innerText = event.description;
+
+                const eventType = document.createElement('span');
+                eventType.classList.add('event-type');
+                eventType.classList.add(`type-${event.type}`);
+                eventType.innerText = event.type.charAt(0).toUpperCase() + event.type.slice(1);
+
+                eventCard.appendChild(eventTitle);
+                eventCard.appendChild(eventDate);
+                eventCard.appendChild(eventDescription);
+                eventCard.appendChild(eventType);
+
+                eventsContainer.appendChild(eventCard);
             });
         }
 
-        function updateClock() {
-            const now = new Date();
-            const options = { hour: '2-digit', minute: '2-digit' };
-            document.getElementById('clock').textContent = now.toLocaleTimeString([], options);
-        }
-
-        setInterval(updateClock, 1000);
-
-        const schedule = {
-            decryptageJuridique: [
-                "https://www.youtube.com/embed/WtL3EihN_bY?autoplay=1&controls=0",
-                "https://www.youtube.com/embed/Dudo9tHUklk?autoplay=1&controls=0",
-                "https://www.youtube.com/embed/rKvJN63YVqw?autoplay=1&controls=0",
-                "https://www.youtube.com/embed/Pyf8M-8U2fg?autoplay=1&controls=0",
-                "https://www.youtube.com/embed/D4XCSZ1gko8?autoplay=1&controls=0",
-                "https://www.youtube.com/embed/6Q_x1aVV7tA?autoplay=1&controls=0",
-                "https://www.youtube.com/embed/F4Kxt1QxW3A?autoplay=1&controls=0"
-            ],
-            faitDivers: [
-                "https://www.youtube.com/embed/lEZnVQOCrxI?autoplay=1&controls=0",
-                "https://www.youtube.com/embed/gE5UE3wXufE?autoplay=1&controls=0",
-                "https://www.youtube.com/embed/bStgp8ERsy4?autoplay=1&controls=0",
-                "https://www.youtube.com/embed/fNx_VBU8NQc?autoplay=1&controls=0",
-                "https://www.youtube.com/embed/rno_QO6yEL4?autoplay=1&controls=0",
-                "https://www.youtube.com/embed/8C6uIT9AhLk?autoplay=1&controls=0",
-                "https://www.youtube.com/embed/vSN_TggJa5g?autoplay=1&controls=0",  
-                "https://www.youtube.com/embed/lZHR5Nuvz6g?autoplay=1&controls=0",
-                "https://www.youtube.com/embed/TtTESfV8CIk?autoplay=1&controls=0",
-                "https://www.youtube.com/embed/PmD8ozT5QfM?autoplay=1&controls=0"
-            ]
-        };
-
-        
-        const defaultVideoUrl = "https://youtube.com/embed/lEZnVQOCrxI?autoplay=1&controls=0"; // vidéo par défaut
-
-        // Fonction de lecture d'un programme
-        function loadVideo() {
-            const currentTime = new Date().getHours();
-            let videoUrl = defaultVideoUrl; // Vidéo par défaut
-
-            if (currentTime >= 0 && currentTime < 6) {
-                videoUrl = schedule.decryptageJuridique[0];
-            } else if (currentTime >= 6 && currentTime < 12) {
-                videoUrl = schedule.faitDivers[0];
-            } else if (currentTime >= 12 && currentTime < 18) {
-                videoUrl = schedule.decryptageJuridique[1];
-            } else if (currentTime >= 18 && currentTime < 24) {
-                videoUrl = schedule.faitDivers[1];
-            }
-
-            document.getElementById('videoPlayer').src = videoUrl;
-        }
-
-        // Appel de la fonction au chargement de la page
-        window.onload = loadVideo;
+        // Initial load to display all events
+        displayEvents(events);
     </script>
 </body>
 </html>
